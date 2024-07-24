@@ -9,6 +9,21 @@ defmodule GmTools.Lookups do
   alias GmTools.Lookups.Verb
 
   @doc """
+  Returns random verbs. Default is only one. If you pass in count, it will return that many unique verbs
+
+  ## Examples
+     iex> roll_verb()
+     [%Verb{}]
+
+     iex> roll_verb(2)
+     [%Verb{}, %Verb{}]
+  """
+  def roll_verbs(count \\ 1) do
+    query = from v in Verb, order_by: fragment("random()"), limit: ^count
+    Repo.all(query)
+  end
+
+  @doc """
   Returns the list of verbs.
 
   ## Examples
