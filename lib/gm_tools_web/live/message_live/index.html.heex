@@ -7,28 +7,26 @@
   </:actions>
 </.header>
 
-<.table
-  id="messages"
-  rows={@streams.messages}
-  row_click={fn {_id, message} -> JS.navigate(~p"/messages/#{message}") end}
->
-  <:col :let={{_id, message}} label="Name"><%= message.name %></:col>
-  <:col :let={{_id, message}} label="Message"><%= message.message %></:col>
-  <:action :let={{_id, message}}>
-    <div class="sr-only">
-      <.link navigate={~p"/messages/#{message}"}>Show</.link>
-    </div>
-    <.link patch={~p"/messages/#{message}/edit"}>Edit</.link>
-  </:action>
-  <:action :let={{id, message}}>
+<ul id="msg-list" phx-update="append" class="w-full">
+  <%= for {message_id, message} <- @streams.messages do %>
+    <li id={message_id} class="px-5">
+      <small class="float-right align-middle">
+        <.link patch={~p"/messages/#{message.id}/edit"}>Edit</.link>
     <.link
-      phx-click={JS.push("delete", value: %{id: message.id}) |> hide("##{id}")}
+      phx-click={JS.push("delete", value: %{id: message.id}) |> hide(message_id)}
       data-confirm="Are you sure?"
     >
       Delete
     </.link>
-  </:action>
-</.table>
+        <%= message.inserted_at %>
+      </small>
+      <b><%= message.name %>:</b>
+      <%= message.message %>
+    </li>
+  <% end %>
+</ul>
+
+
 
 <.modal :if={@live_action in [:new, :edit]} id="message-modal" show on_cancel={JS.patch(~p"/messages")}>
   <.live_component
