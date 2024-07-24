@@ -18,7 +18,7 @@ defmodule GmTools.Messages do
 
   """
   def list_messages do
-    Repo.all(Message)
+    Repo.all(from m in Message, order_by: [desc: :inserted_at])
   end
 
   @doc """
