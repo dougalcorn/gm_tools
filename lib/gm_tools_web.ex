@@ -21,7 +21,7 @@ defmodule GmToolsWeb do
 
   def router do
     quote do
-      use Phoenix.Router, helpers: false
+      use Phoenix.Router, helpers: true
 
       # Import common connection and controller functions to use in pipelines
       import Plug.Conn
@@ -101,6 +101,23 @@ defmodule GmToolsWeb do
         endpoint: GmToolsWeb.Endpoint,
         router: GmToolsWeb.Router,
         statics: GmToolsWeb.static_paths()
+    end
+  end
+
+  # Kaffy wants the old views
+  def view do
+    quote do
+      use Phoenix.View, root: "lib/gm_tools/templates", namespace: GmToolsWeb
+
+      # Import convenience functions from controllers
+      import Phoenix.Controller,
+        only: [get_flash: 1, get_flash: 2, view_module: 1, view_template: 1]
+
+      # Use all HTML functionality (forms, tags, etc)
+      use Phoenix.HTML
+
+      import GmToolsWeb.ErrorHelpers
+      import GmToolsWeb.Gettext
     end
   end
 

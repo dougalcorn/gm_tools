@@ -32,7 +32,7 @@ defmodule GmTools.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:bandit, "~> 1.5"}
+      {:bandit, "~> 1.5"},
       {:dns_cluster, "~> 0.1.1"},
       {:ecto_sql, "~> 3.10"},
       {:esbuild, "~> 0.8", runtime: Mix.env() == :dev},
@@ -41,6 +41,8 @@ defmodule GmTools.MixProject do
       {:gettext, "~> 0.20"},
       {:heroicons, github: "tailwindlabs/heroicons", tag: "v2.1.1", sparse: "optimized", app: false, compile: false, depth: 1},
       {:jason, "~> 1.2"},
+#      {:kaffy, "~> 0.10.0"},
+      { :kaffy, git: "https://github.com/aesmail/kaffy.git", ref: "314fedb" },
       {:phoenix, "~> 1.7.14"},
       {:phoenix_ecto, "~> 4.5"},
       {:phoenix_html, "~> 4.1"},

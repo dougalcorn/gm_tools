@@ -53,6 +53,11 @@ config :tailwind,
     cd: Path.expand("../assets", __DIR__)
   ]
 
+config :kaffy,
+  otp_app: :gm_tools,
+  ecto_repo: GmTools.Repo,
+  router: GmToolsWeb.Router
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

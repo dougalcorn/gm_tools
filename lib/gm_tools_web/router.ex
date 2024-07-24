@@ -1,5 +1,6 @@
 defmodule GmToolsWeb.Router do
   use GmToolsWeb, :router
+  use Kaffy.Routes
 
   pipeline :browser do
     plug :accepts, ["html"]
