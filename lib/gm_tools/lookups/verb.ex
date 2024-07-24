@@ -13,5 +13,6 @@ defmodule GmTools.Lookups.Verb do
     verb
     |> cast(attrs, [:verb])
     |> validate_required([:verb])
+    |> unique_constraint(:verb)
   end
 end
