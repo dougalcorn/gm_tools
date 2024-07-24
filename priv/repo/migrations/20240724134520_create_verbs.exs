@@ -7,6 +7,6 @@ defmodule GmTools.Repo.Migrations.CreateVerbs do
 
       timestamps(type: :utc_datetime)
     end
-    unique_index "verbs", [:verb]
+    create unique_index "verbs", [:verb]
   end
 end
