@@ -55,7 +55,7 @@ defmodule GmTools.Messages do
     |> Repo.insert()
   end
 
-  def create_message(attrs \\ %{}) do
+  def create_message(attrs) do
     %Message{}
     |> Message.changeset(attrs)
     |> Repo.insert()
