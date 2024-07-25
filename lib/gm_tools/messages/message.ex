@@ -5,7 +5,7 @@ defmodule GmTools.Messages.Message do
   schema "messages" do
     field :message, :string
     field :name, :string
-    field :style, :string, virtual: true
+    field :style, :string
 
     timestamps(type: :utc_datetime)
   end
