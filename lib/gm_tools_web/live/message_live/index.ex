@@ -6,13 +6,13 @@ defmodule GmToolsWeb.MessageLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    changeset =
-      Message.changeset(%Message{}, %{})
-
+    changeset = Message.changeset(%Message{}, %{})
     messages = Messages.list_messages() |> Enum.reverse()
 
-    socket = assign(socket, form: to_form(changeset))
-    {:ok, stream(socket, :messages, messages) }
+    {:ok, socket
+     |> assign(form: to_form(changeset))
+     |> stream(:messages, messages)
+    }
   end
 
   @impl true
@@ -52,16 +52,14 @@ defmodule GmToolsWeb.MessageLive.Index do
   end
 
   def handle_event("validate", %{"message" => message_params}, socket) do
-        changeset =
-          Message.changeset(%Message{}, message_params)
+    changeset = Message.changeset(%Message{}, message_params)
     {:noreply, assign(socket, :form, to_form(changeset))}
   end
 
   def handle_event("save", %{"message" => message_params}, socket) do
     case Messages.create_message(message_params) do
       {:ok, message} ->
-        changeset =
-          Message.changeset(%Message{}, %{"name" => message_params["name"], "message" => ""})
+        changeset = Message.changeset(%Message{}, %{"name" => message_params["name"], "message" => ""})
 
         {:noreply,
          socket
