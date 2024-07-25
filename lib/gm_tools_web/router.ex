@@ -18,7 +18,7 @@ defmodule GmToolsWeb.Router do
   scope "/", GmToolsWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    live "/", MessageLive.Index
     live "/messages", MessageLive.Index, :index
     live "/messages/new", MessageLive.Index, :new
     live "/messages/:id/edit", MessageLive.Index, :edit

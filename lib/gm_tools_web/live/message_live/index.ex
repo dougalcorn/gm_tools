@@ -38,6 +38,10 @@ defmodule GmToolsWeb.MessageLive.Index do
     |> assign(:message, nil)
   end
 
+  defp apply_action(socket, _, _) do
+    socket
+  end
+
   @impl true
   def handle_info({GmToolsWeb.MessageLive.FormComponent, {:saved, message}}, socket) do
     {:noreply, stream_insert(socket, :messages, message)}
