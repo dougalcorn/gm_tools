@@ -3,6 +3,7 @@ defmodule GmToolsWeb.MessageLive.Index do
 
   alias GmTools.Messages
   alias GmTools.Messages.Message
+  import GmToolsWeb.MessageComponent
 
   @impl true
   def mount(_params, _session, socket) do

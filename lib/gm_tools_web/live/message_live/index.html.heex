@@ -9,19 +9,18 @@
 
 <ul id="msg-list" phx-update="append" class="w-full">
   <%= for {message_id, message} <- @streams.messages do %>
-    <li id={message_id} class="px-5">
-      <small class="float-right align-middle">
+    <li id={message_id} class="px-5 group">
+      <small class="float-right align-middle ">
+        <span class="invisible group-hover:visible">
         <.link patch={~p"/messages/#{message.id}/edit"}>Edit</.link>
-    <.link
-      phx-click={JS.push("delete", value: %{id: message.id}) |> hide(message_id)}
-      data-confirm="Are you sure?"
-    >
-      Delete
-    </.link>
+        <.link phx-click={JS.push("delete", value: %{id: message.id}) |> hide(message_id)} data-confirm="Are you sure?">
+          Delete
+        </.link>
+        </span>
+
         <%= message.inserted_at %>
       </small>
-      <b><%= message.name %>:</b>
-      <%= message.message %>
+      <.message message={message} />
     </li>
   <% end %>
 </ul>
@@ -29,7 +28,7 @@
 <footer >
     <.simple_form for={@form} id="message-form" phx-submit="save" phx-hook="Form" phx-change="validate">
 
-      <.input field={@form[:name]} type="text" label="Name" autofocus="true" />
+      <.input field={@form[:name]} type="text" label="Name" autofocus="true" autocomplete="false" />
       <.input field={@form[:message]} type="text" label="Message" />
       <.button> Send </.button>
     </.simple_form>
