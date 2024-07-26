@@ -8,6 +8,12 @@ defmodule GmToolsWeb.MessageComponent do
 
   attr :message, Message
 
+  def message(assigns = %{message: %{style: "roll"}}) do
+    ~H"""
+      <b><%= @message.name %></b> rolls <%= @message.message %>
+    """
+  end
+
   def message(assigns = %{message: %{style: "emote"}}) do
     ~H"""
       <b><%= @message.name %></b> <em><%= @message.message %></em>

@@ -49,6 +49,12 @@ defmodule GmTools.Messages do
       {:error, %Ecto.Changeset{}}
 
   """
+  def create_message(attrs = %{"message" => "/roll "<> rest}) do
+    %Message{style: "roll"}
+    |> Message.changeset(%{attrs | "message" => "#{rest} => #{ExDiceRoller.roll(rest)}"})
+    |> Repo.insert()
+  end
+
   def create_message(attrs = %{"message" => "/me "<> rest}) do
     %Message{style: "emote"}
     |> Message.changeset(%{attrs | "message" => rest})
