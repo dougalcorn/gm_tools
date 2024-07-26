@@ -8,6 +8,12 @@ defmodule GmToolsWeb.MessageComponent do
 
   attr :message, Message
 
+  def message(assigns = %{message: %{style: "lookup"}}) do
+    ~H"""
+      <b><%= @message.name %></b> looks up <%= @message.message %>
+    """
+  end
+
   def message(assigns = %{message: %{style: "roll"}}) do
     ~H"""
       <b><%= @message.name %></b> rolls <%= @message.message %>

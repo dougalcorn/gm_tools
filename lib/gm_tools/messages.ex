@@ -49,6 +49,15 @@ defmodule GmTools.Messages do
       {:error, %Ecto.Changeset{}}
 
   """
+  def create_message(attrs = %{"message" => "/lookup "<> rest}) do
+    matches = Regex.named_captures(~r/(?<count>\d+)d(?<table>\w+)/, rest)
+    verbs = for v <- apply(GmTools.Lookups, String.to_atom("roll_#{matches["table"]}"), [matches["count"]]), do: v.verb
+    verbs = Enum.join(verbs, " ")
+    %Message{style: "lookup"}
+    |> Message.changeset(%{attrs | "message" => "#{matches["table"]}: #{verbs}"})
+    |> Repo.insert()
+  end
+
   def create_message(attrs = %{"message" => "/roll "<> rest}) do
     %Message{style: "roll"}
     |> Message.changeset(%{attrs | "message" => "#{rest} => #{ExDiceRoller.roll(rest)}"})
